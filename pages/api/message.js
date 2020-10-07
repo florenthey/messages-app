@@ -21,17 +21,20 @@ export default (req, res) => {
 };
 
 async function postMessage(req, res) {
-  const { text, isPrivate } = req.body;
+  const { text, isPrivate, username } = req.body;
 
   try {
     const newMessage = await new Message({
-      author: req.headers.authorization,
+      // A corriger / Mettre l'id dans req.hearders et non le body
+      // author: req.headers.authorization,
+      author: req.body.author,
       text: text,
       isPrivate: isPrivate,
     }).save();
 
     res.status(200).send(newMessage);
   } catch (error) {
+    console.log(error);
     res.status(500).send("Server error!");
   }
 }
