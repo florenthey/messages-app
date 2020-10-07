@@ -1,5 +1,5 @@
 import connectDB from "../../utils/connectDB";
-
+import Message from "../../models/message";
 connectDB();
 
 export default (req, res) => {
@@ -13,5 +13,10 @@ export default (req, res) => {
 };
 
 async function getMessages(req, res) {
-  res.status(200).send("It's work's!");
+  try {
+    const messages = await Message.find({});
+    res.status(200).json(messages);
+  } catch (error) {
+    res.status(405).send(`Method ${req.method} not allowed`);
+  }
 }
