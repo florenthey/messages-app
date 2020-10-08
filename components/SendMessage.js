@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useFormik } from "formik";
+import { useFormik, Field } from "formik";
 import React, { useState } from "react";
 
 export default function SendMessage() {
@@ -8,6 +8,7 @@ export default function SendMessage() {
   const formik = useFormik({
     initialValues: {
       message: "",
+      private: false,
     },
     // validationSchema: YupRegister,
 
@@ -15,9 +16,9 @@ export default function SendMessage() {
       try {
         console.log(values);
         await axios.post("http://localhost:3000/api/message", {
-          author: "5f7dec2a881b4b1552dfd621", // Default
+          author: localStorage.getItem("idUserLBC"), // Default
           text: values.message,
-          isPrivate: false, // Default
+          isPrivate: values.private, // Default
         });
         setErrors("");
       } catch (error) {
@@ -37,6 +38,12 @@ export default function SendMessage() {
           onBlur={formik.handleBlur}
           value={formik.values.message}
           type="text"
+        />
+        <input
+          onChange={formik.handleChange}
+          type="checkbox"
+          id="private"
+          name="private"
         />
         <button type="submit">Envoyer</button>
       </form>

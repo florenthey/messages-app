@@ -6,7 +6,11 @@ export default function ListMessages({ messages }) {
     <div>
       <h2>Liste de messages</h2>
       {messages.map((message, index) => (
-        <Message key={index} {...message} />
+        <Message
+          key={index}
+          {...message}
+          isUser={localStorage.getItem("idUserLBC") === message.author._id}
+        />
       ))}
     </div>
   );
