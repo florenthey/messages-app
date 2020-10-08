@@ -33,13 +33,15 @@ export default function Home() {
     onSubmit: async (values) => {
       try {
         console.log(values);
-        await axios.post("http://localhost:3000/api/user", values);
+        const user = await axios.post("http://localhost:3000/api/user", values);
+        console.log(user);
         setErrors("");
         if (!storageAvailable("localStorage")) {
           alert(
             "Votre navigateur web ne prend pas en compte la propriété localeStorage. Vous ne pourrez pas utiliser toutes les fonctionnalités de notre site."
           );
         } else {
+          localStorage.idUserLBC = user.data._id;
           localStorage.nicknameLBC = values.username;
           router.push("/messages");
         }
