@@ -17,7 +17,6 @@ async function createUser(req, res) {
   const { username } = req.body;
 
   const isExist = await User.findOne({ username: username });
-  console.log(isExist);
   if (isExist) {
     return res.status(405).send("This user already exists");
   }

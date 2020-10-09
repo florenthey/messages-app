@@ -34,7 +34,6 @@ async function postMessage(req, res) {
 
     res.status(200).send(newMessage);
   } catch (error) {
-    console.log(error);
     res.status(500).send("Server error!");
   }
 }

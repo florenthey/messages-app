@@ -1,43 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
 import ListMessages from "../components/ListMessages";
-import axios from "axios";
 import SendMessage from "../components/SendMessage";
 
+import { MessageContext } from "../context/messageContext";
+
+const Title = styled.h1`
+  font-size: 9vw;
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
 export default function messages() {
-  const [messages, setMessages] = useState([]);
-  const [messagesPrivate, setMessagesPrivate] = useState([]);
-  const [errors, setErrors] = useState("");
-  useEffect(() => {
-    const idUserLBC = localStorage.getItem("idUserLBC")
-      ? localStorage.getItem("idUserLBC")
-      : "";
-
-    axios
-      .get("http://localhost:3000/api/messages")
-      .then((res) => {
-        console.log(res);
-
-        const messagePrivateFilter = res.data.filter(
-          (e) => e.isPrivate === true && e.author._id === idUserLBC
-        );
-
-        const messageSimpleFilter = res.data.filter(
-          (e) => e.isPrivate === false
-        );
-
-        setMessages(messageSimpleFilter);
-        setMessagesPrivate(messagePrivateFilter);
-      })
-      .catch((error) => {
-        setErrors(error.response.data);
-      });
-  }, []);
+  const { messages, messagesPrivate } = useContext(MessageContext);
   return (
     <div>
-      <h1>La page messages</h1>
-      <ListMessages messages={messages} />
-      <ListMessages messages={messagesPrivate} />
-      <SendMessage />
+      <Title>Messages</Title>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "30% 70%",
+          gap: "10px",
+          margin: "20px",
+        }}
+      >
+        <ListMessages isPrivate={true} messages={messagesPrivate} />
+        <ListMessages isPrivate={false} messages={messages} />
+        <SendMessage />
+      </div>
     </div>
   );
 }
