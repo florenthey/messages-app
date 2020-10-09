@@ -1,4 +1,4 @@
-# Application for post public or private message
+# Application for post public or private messages
 
 If the user connects with a nickname, he has access to a page listing the public messages of all users
 He can write a message in turn by specifying a public or private status
@@ -10,7 +10,7 @@ A private message is only visible to the author
 1 - Download the project:
 
 ```bash
-git clone blablabla
+git clone https://github.com/florenthey/messages-app.git
 ```
 
 2 - Add an .env file to the root of the project with the environment variables that will be provided to you or with your own MongoDb database configuration:
