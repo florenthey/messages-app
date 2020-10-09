@@ -15,6 +15,7 @@ export default (req, res) => {
 async function getMessages(req, res) {
   try {
     const messages = await Message.find({}).populate("author");
+    console.log(messages);
     res.status(200).json(messages);
   } catch (error) {
     res.status(405).send(`Method ${req.method} not allowed`);
