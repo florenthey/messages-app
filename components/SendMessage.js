@@ -5,7 +5,7 @@ import { MessageContext } from "../context/messageContext";
 
 export default function SendMessage() {
   const [errors, setErrors] = useState("");
-  const { publishMessage } = useContext(MessageContext);
+  const { sendMessage } = useContext(MessageContext);
 
   const formik = useFormik({
     initialValues: {
@@ -15,7 +15,7 @@ export default function SendMessage() {
     // validationSchema: YupRegister,
 
     onSubmit: (values, { resetForm }) => {
-      publishMessage(values);
+      sendMessage(values);
       resetForm({ values: "" });
     },
   });
@@ -37,8 +37,10 @@ export default function SendMessage() {
         onBlur={formik.handleBlur}
         value={formik.values.message}
         type="text"
-        style={{ width: "100%" }}
+        style={{ width: "100%", margin: "5px" }}
+        placeholder="My message"
       />
+
       <input
         onChange={formik.handleChange}
         type="checkbox"
@@ -46,6 +48,8 @@ export default function SendMessage() {
         name="private"
         checked={formik.values.private}
       />
+      <label for="private">is private</label>
+
       <button type="submit">Send</button>
     </form>
   );

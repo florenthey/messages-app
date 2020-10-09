@@ -47,7 +47,7 @@ export const MessageProvider = ({ children }) => {
       });
   }, []);
 
-  const messageToPublish = async (_id) => {
+  const publishMessage = async (_id) => {
     try {
       await Axios.put("http://localhost:3000/api/message", {
         _id,
@@ -70,7 +70,7 @@ export const MessageProvider = ({ children }) => {
     }
   };
 
-  const publishMessage = async (values) => {
+  const sendMessage = async (values) => {
     try {
       await Axios.post("http://localhost:3000/api/message", {
         author: localStorage.getItem("idUserLBC"), // Default
@@ -96,7 +96,7 @@ export const MessageProvider = ({ children }) => {
 
   return (
     <MessageContext.Provider
-      value={{ messages, messagesPrivate, publishMessage, messageToPublish }}
+      value={{ messages, messagesPrivate, sendMessage, publishMessage }}
     >
       {children}
     </MessageContext.Provider>

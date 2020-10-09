@@ -4,7 +4,7 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { MessageContext } from "../context/messageContext";
 
 export default function Message({ text, author, isUser, isPrivate, _id }) {
-  const { messageToPublish } = useContext(MessageContext);
+  const { publishMessage } = useContext(MessageContext);
 
   const [errors, setErrors] = useState("");
 
@@ -29,7 +29,7 @@ export default function Message({ text, author, isUser, isPrivate, _id }) {
       {isPrivate && (
         <button
           style={{ backgroundColor: "#f3d362", width: "70%" }}
-          onClick={() => messageToPublish(_id)}
+          onClick={() => publishMessage(_id)}
         >
           Publish
         </button>
