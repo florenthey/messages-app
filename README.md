@@ -1,4 +1,4 @@
-# Application for post public or private message
+# Application for post public or private messages
 
 If the user connects with a nickname, he has access to a page listing the public messages of all users
 He can write a message in turn by specifying a public or private status
